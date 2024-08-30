@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <!-- Sidebar -->
+    <div class="md:flex ">
+        <aside class="bg-gray-900 text-white w-64 min-h-screen hidden md:flex flex-col p-4">
+            <div class="text-lg font-bold mb-4">Dashboard</div>
+            <nav>
+                <ul>
+                    <li class="mb-2"><a href="/" class="block py-2 px-4 hover:bg-gray-700">Home</a></li>
+                    <li class="mb-2"><a href="analytics.html" class="block py-2 px-4 hover:bg-gray-700">Analytics</a></li>
+                    <li class="mb-2"><a href="reports.html" class="block py-2 px-4 hover:bg-gray-700">Reports</a></li>
+                    <li class="mb-2"><a href="user-management.html" class="block py-2 px-4 hover:bg-gray-700">User Management</a></li>
+                    <li class="mb-2"><a href="settings.html" class="block py-2 px-4 hover:bg-gray-700">Settings</a></li>
+                    <li class="mb-2"><a href="notifications.html" class="block py-2 px-4 hover:bg-gray-700">Notifications</a></li>
+                    <li class="mb-2"><a href="help.html" class="block py-2 px-4 hover:bg-gray-700">Help & Support</a></li>
+                </ul>
+            </nav>
+        </aside>
+         <!-- Mobile Menu Button -->
+    <div class="md:hidden flex items-center justify-between p-4 bg-gray-900 text-white">
+        <button id="menu-button" class="focus:outline-none">
+            <!-- Hamburger Icon -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+        <div class="text-lg font-semibold">My Dashboard</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out bg-white shadow-md z-50 w-64 md:hidden">
+        <div class="p-4 border-b">
+            <h2 class="text-lg font-semibold">Menu</h2>
+        </div>
+        <nav class="p-4">
+            <ul>
+                <li class="mb-2"><a href="/" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Home</a></li>
+                <li class="mb-2"><a href="analytics.html" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Analytics</a></li>
+                <li class="mb-2"><a href="reports.html" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Reports</a></li>
+                <li class="mb-2"><a href="user-management.html" class="block py-2 px-4 hover:bg-gray-700">User Management</a></li>
+                    <li class="mb-2"><a href="settings.html" class="block py-2 px-4 hover:bg-gray-700">Settings</a></li>
+                    <li class="mb-2"><a href="notifications.html" class="block py-2 px-4 hover:bg-gray-700">Notifications</a></li>
+                    <li class="mb-2"><a href="help.html" class="block py-2 px-4 hover:bg-gray-700">Help & Support</a></li>
+            </ul>
+        </nav>
+    </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 p-6">
+            <!-- Top Navigation Bar -->
+            <header class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-semibold">Analytics</h1>
+                <button class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-blue-600">Logout</button>
+            </header>
+
+            <!-- Analytics Charts Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-lg font-semibold mb-4">Traffic Overview</h2>
+                <!-- Placeholder for Chart -->
+                <div class="bg-gray-200 h-64 rounded-lg mb-6">
+                        <canvas id="myChart" class="md:w-1000px"></canvas>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-lg font-semibold mb-2">Visitors</h2>
+                        <p class="text-3xl font-bold">14,200</p>
+                        <p class="text-green-500 mt-2">+18% since last week</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-lg font-semibold mb-2">Bounce Rate</h2>
+                        <p class="text-3xl font-bold">32%</p>
+                        <p class="text-red-500 mt-2">+2% since last month</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-lg font-semibold mb-2">Conversions</h2>
+                        <p class="text-3xl font-bold">3,450</p>
+                        <p class="text-green-500 mt-2">+10% since last quarter</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript for Sidebar Toggle -->
+    <script>
+        // Reference to sidebar and menu button
+        var sidebar = document.getElementById('sidebar');
+        var menuButton = document.getElementById('menu-button');
+
+        // Function to toggle sidebar
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            document.body.classList.toggle('no-scroll');
+        }
+
+        // Event listener for menu button to open/close sidebar
+        menuButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent click event from bubbling up to the body
+            toggleSidebar();
+        });
+
+        // Event listener for the body to close sidebar when clicking outside
+        document.body.addEventListener('click', function(event) {
+            // Check if the sidebar is open and if the click is outside the sidebar
+            if (!sidebar.classList.contains('-translate-x-full') && !sidebar.contains(event.target) && !menuButton.contains(event.target)) {
+                toggleSidebar();
+            }
+        });
+         // Initialize chart data
+         const data = {
+            labels: Array.from({ length: 10 }, (_, i) => `Point ${i + 1}`), // Initial labels
+            datasets: [{
+                label: 'Live Data',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                data: Array.from({ length: 10 }, () => Math.floor(Math.random() * 100)) // Initial random data
+            }]
+        };
+
+        // Chart configuration
+        const config = {
+            type: 'line',
+            data,
+            options: {
+                animation: false, // Disable animation for real-time performance
+                responsive: true,
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Value'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Create the chart
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+
+        // Function to update the chart with new data
+        function updateChart() {
+            // Remove the first data point
+            data.labels.shift();
+            data.datasets[0].data.shift();
+
+            // Add a new data point
+            const nextIndex = data.labels.length + 1;
+            data.labels.push(`Point ${nextIndex}`);
+            data.datasets[0].data.push(Math.floor(Math.random() * 100));
+
+            // Update the chart
+            myChart.update();
+        }
+
+        // Simulate data updates every second
+        setInterval(updateChart, 1000);
+    </script>
+</body>
+</html>
